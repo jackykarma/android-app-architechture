@@ -1,0 +1,31 @@
+// 动态业务的公共gradle配置
+android {
+    defaultConfig {
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [AROUTER_MODULE_NAME: project.getName()]
+            }
+        }
+    }
+    buildTypes {
+        debug {
+            // minifyEnabled false
+            // shrinkResources false
+        }
+        release {
+            // Dynamic feature modules cannot set minifyEnabled to true
+            // minifyEnabled true
+            // Resource shrinking must be configured for base module.
+            // shrinkResources true
+        }
+    }
+}
+
+dependencies {
+    implementation project(':app')
+    implementation project(':biz_base')
+    implementation project(':libarch')
+
+    // ARouter::Compiler >>> No module name, for more information, look at gradle log.
+    annotationProcessor "com.alibaba:arouter-compiler:${versions.arouter}"
+}

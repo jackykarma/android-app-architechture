@@ -1,0 +1,36 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+}
+
+apply from: "$rootDir/gradle/appcommon.gradle"
+apply from: "$rootDir/gradle/depsext.gradle"
+
+android {
+    namespace 'com.jacky.appsupport'
+
+    defaultConfig {
+        applicationId "com.jacky.appsupport"
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [AROUTER_MODULE_NAME: project.getName()]
+            }
+        }
+    }
+    buildTypes {
+        debug {
+            minifyEnabled false
+            shrinkResources false
+        }
+        release {
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    // 每一个使用ARouter注解的模块都要添加
+    annotationProcessor "com.alibaba:arouter-compiler:${versions.arouter}"
+}

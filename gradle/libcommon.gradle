@@ -1,0 +1,31 @@
+// 基础的公共gradle
+apply from: "$rootDir/gradle/depsext.gradle"
+
+android {
+    buildTypes {
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+
+    testImplementation "junit:junit:${versions.junit}"
+    androidTestImplementation "androidx.test.ext:junit:${versions.xjunit}"
+    androidTestImplementation "androidx.test.espresso:espresso-core:${versions.espresso}"
+
+    // 协程库
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:${versions.kotlinVersion}"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:${versions.kotlinxCoroutinesCore}"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:${versions.kotlinxCoroutinesAndroid}"
+    // 生命周期组件
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:${versions.lifecycleVersion}"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:${versions.lifecycleVersion}"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:${versions.lifecycleVersion}"
+}
